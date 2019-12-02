@@ -13,6 +13,15 @@ const toggleDesignMode = () => {
     broadcast({ type: 'toggle-design-mode' });
 }
 
+const takeScreenshot = () => {
+    broadcast({ type: 'take-screenshot' });
+};
+
+
+const changeChackboxStatus = (e) => {
+    broadcast({ type: 'checked-fullscreen', status: e.target.checked });
+};
+
 const broadcast = message => {
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
         chrome.tabs.sendMessage(tabs[0].id, message, response => {
@@ -33,8 +42,9 @@ const broadcast = message => {
     });
 }
 
-document.getElementById('toggle-design-mode-btn')
-    .onclick = toggleDesignMode;
+document.getElementById('toggle-design-mode-btn').onclick = toggleDesignMode;
+document.getElementById('take-visible-screenshot-btn').onclick = takeScreenshot;
+document.getElementById('full-page').onchange = changeChackboxStatus;
 
 window.onload = () => {
     init();

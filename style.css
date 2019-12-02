@@ -4,7 +4,7 @@
     width: 150px;
 }
 
-#take-screenshot-btn {
+#take-visible-screenshot-btn, #take-full-screenshot-btn {
     width: 100%;
     background-color: #ff0000;
     color: #ffffff;
@@ -13,4 +13,8 @@
     border-radius: 5px;
     padding: 5px;
     margin-top: 10px;
+}
+
+label {
+    user-select: none;
 }
