@@ -1,3 +1,14 @@
+let state;
+let toggleBtn = document.getElementById('toggle-design-mode-btn');
+
+const init = () => {
+    broadcast({ type: 'get-state' });
+};
+
+const setButtonText = text => {
+    toggleBtn.innerHTML = text === 'on' ? 'Disable' : 'Enable';
+};
+
 const toggleDesignMode = () => {
     broadcast({ type: 'toggle-design-mode' });
 }
@@ -9,7 +20,12 @@ const broadcast = message => {
 
             switch (response.type) {
                 case 'toggle-design-mode':
-                    document.getElementById('toggle-design-mode-btn').innerHTML = response.payload === 'on' ? 'Disable' : 'Enable';
+                    setButtonText(response.payload);
+                    break;
+                case 'get-state':
+                    state = response.payload;
+
+                    setButtonText(state.designMode);
                     break;
                 default:
             }
@@ -19,3 +35,7 @@ const broadcast = message => {
 
 document.getElementById('toggle-design-mode-btn')
     .onclick = toggleDesignMode;
+
+window.onload = () => {
+    init();
+};
